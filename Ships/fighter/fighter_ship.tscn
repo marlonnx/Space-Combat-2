@@ -1,0 +1,211 @@
+[gd_scene load_steps=28 format=3 uid="uid://rd1sgg8yw727"]
+
+[ext_resource type="Script" path="res://Ships/fighter/fighter_ship.gd" id="1_e1qg7"]
+[ext_resource type="Texture2D" uid="uid://s5a4646g7fmb" path="res://SpriteSheets/FighterShip/Fighter - Base.png" id="1_s1752"]
+[ext_resource type="Texture2D" uid="uid://dshaqhn6kglds" path="res://SpriteSheets/FighterShip/Fighter - Weapons.png" id="2_ue84m"]
+[ext_resource type="Script" path="res://Ships/fighter/Weapons.gd" id="3_dt8t4"]
+[ext_resource type="Texture2D" uid="uid://bs24dd7ccuo0t" path="res://SpriteSheets/FighterShip/Fighter - Engine.png" id="3_ldgxi"]
+[ext_resource type="PackedScene" uid="uid://c0k3xvcuk121x" path="res://Ships/fighter/bullet.tscn" id="4_eklov"]
+[ext_resource type="Script" path="res://Ships/fighter/Engine.gd" id="4_orn20"]
+[ext_resource type="Texture2D" uid="uid://c8kfbwmxsg5u8" path="res://SpriteSheets/FighterShip/Fighter - Shield.png" id="5_aw8e2"]
+[ext_resource type="AudioStream" uid="uid://cisevmgwkchjr" path="res://Ships/fighter/shoot_sound.wav" id="6_scoeb"]
+[ext_resource type="Script" path="res://Ships/fighter/Shield.gd" id="8_2wr30"]
+
+[sub_resource type="Animation" id="Animation_mw7ix"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_x4hkr"]
+resource_name = "Shoot"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"shootRight"
+}, {
+"args": [],
+"method": &"shootLeft"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7a73f"]
+_data = {
+"RESET": SubResource("Animation_mw7ix"),
+"Shoot": SubResource("Animation_x4hkr")
+}
+
+[sub_resource type="Animation" id="Animation_g4kbg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_nh3wb"]
+resource_name = "Run"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ccvye"]
+_data = {
+"RESET": SubResource("Animation_g4kbg"),
+"Run": SubResource("Animation_nh3wb")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y35o3"]
+atlas = ExtResource("5_aw8e2")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmoji"]
+atlas = ExtResource("5_aw8e2")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wswim"]
+atlas = ExtResource("5_aw8e2")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0camb"]
+atlas = ExtResource("5_aw8e2")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rmu1"]
+atlas = ExtResource("5_aw8e2")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wgqo4"]
+atlas = ExtResource("5_aw8e2")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7e1g0"]
+atlas = ExtResource("5_aw8e2")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dtf1d"]
+atlas = ExtResource("5_aw8e2")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8lrd"]
+atlas = ExtResource("5_aw8e2")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vux7m"]
+atlas = ExtResource("5_aw8e2")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rq1nu"]
+animations = [{
+"frames": [SubResource("AtlasTexture_y35o3"), SubResource("AtlasTexture_mmoji"), SubResource("AtlasTexture_wswim"), SubResource("AtlasTexture_0camb"), SubResource("AtlasTexture_4rmu1"), SubResource("AtlasTexture_wgqo4"), SubResource("AtlasTexture_7e1g0"), SubResource("AtlasTexture_dtf1d"), SubResource("AtlasTexture_a8lrd"), SubResource("AtlasTexture_vux7m")],
+"loop": true,
+"name": &"Shield",
+"speed": 8.0
+}]
+
+[node name="FighterShip" type="Node2D"]
+script = ExtResource("1_e1qg7")
+
+[node name="Base" type="Sprite2D" parent="."]
+texture = ExtResource("1_s1752")
+
+[node name="Weapons" type="Node2D" parent="."]
+script = ExtResource("3_dt8t4")
+Bullet = ExtResource("4_eklov")
+
+[node name="Sprite2D" type="Sprite2D" parent="Weapons"]
+visible = false
+texture = ExtResource("2_ue84m")
+hframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Weapons"]
+playback_speed = 2.0
+libraries = {
+"": SubResource("AnimationLibrary_7a73f")
+}
+
+[node name="ColdDownTimer" type="Timer" parent="Weapons"]
+wait_time = 0.3
+
+[node name="SoundEffect" type="AudioStreamPlayer" parent="Weapons"]
+stream = ExtResource("6_scoeb")
+
+[node name="Engine" type="Node2D" parent="."]
+script = ExtResource("4_orn20")
+
+[node name="Sprite2D" type="Sprite2D" parent="Engine"]
+texture = ExtResource("3_ldgxi")
+hframes = 10
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Engine"]
+libraries = {
+"": SubResource("AnimationLibrary_ccvye")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Engine"]
+
+[node name="Shield" type="Node2D" parent="."]
+visible = false
+script = ExtResource("8_2wr30")
+
+[node name="ColdDownTimer" type="Timer" parent="Shield"]
+wait_time = 5.0
+one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shield"]
+frames = SubResource("SpriteFrames_rq1nu")
+animation = &"Shield"
+frame = 4
+
+[node name="ShieldDurationTimer" type="Timer" parent="Shield"]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="animation_finished" from="Weapons/AnimationPlayer" to="Weapons" method="_on_animation_player_animation_finished"]

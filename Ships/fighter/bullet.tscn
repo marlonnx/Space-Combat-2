@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=3 uid="uid://c0k3xvcuk121x"]
+
+[ext_resource type="Texture2D" uid="uid://d2tgvup3k5csj" path="res://SpriteSheets/FighterShip/Bullet.png" id="1_gdtlf"]
+[ext_resource type="Script" path="res://Ships/fighter/bullet.gd" id="1_ynshh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s3h3d"]
+radius = 2.0
+height = 10.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cy081"]
+atlas = ExtResource("1_gdtlf")
+region = Rect2(0, 0, 4, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6vuv"]
+atlas = ExtResource("1_gdtlf")
+region = Rect2(4, 0, 4, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85oss"]
+atlas = ExtResource("1_gdtlf")
+region = Rect2(8, 0, 4, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jtncc"]
+atlas = ExtResource("1_gdtlf")
+region = Rect2(12, 0, 4, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_unio3"]
+animations = [{
+"frames": [SubResource("AtlasTexture_cy081"), SubResource("AtlasTexture_f6vuv"), SubResource("AtlasTexture_85oss"), SubResource("AtlasTexture_jtncc")],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Bullet" type="Node2D"]
+script = ExtResource("1_ynshh")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CapsuleShape2D_s3h3d")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+frames = SubResource("SpriteFrames_unio3")

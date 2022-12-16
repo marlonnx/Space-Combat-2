@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwjtn7njr7xyr"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_hyem4"]
+[ext_resource type="PackedScene" uid="uid://rd1sgg8yw727" path="res://Ships/fighter/fighter_ship.tscn" id="2_6ggtp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t7vke"]
+size = Vector2(24, 6)
+
+[node name="Main" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(319, 180)
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(319, 310)
+script = ExtResource("1_hyem4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_t7vke")
+
+[node name="FighterShip" parent="Player" groups=["ships"] instance=ExtResource("2_6ggtp")]
