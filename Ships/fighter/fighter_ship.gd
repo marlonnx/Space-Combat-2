@@ -2,6 +2,10 @@ extends BaseShip
 
 @onready var weapon := $Weapons
 @onready var shield := $Shield
+@onready var destruction := $Destruction
+@onready var baseSprite := $Base
+@onready var engine := $Engine
+signal destruction_completed
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,4 +26,11 @@ func use_shield() -> void:
 	pass
 	
 func destroy() -> void:
+	weapon.visible =false
+	shield.visible = false
+	baseSprite.visible = false
+	engine.visible = false
+	destruction.call("destroy")
+	await destruction.destruction_completed
+	emit_signal("destruction_completed")
 	pass

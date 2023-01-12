@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 
@@ -6,11 +7,12 @@ extends CharacterBody2D
 @export var acceleration = 0.5
 
 @onready var ship:= $FighterShip as BaseShip
+@onready var collision := $CollisionShape2D
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-
+signal player_death
 	
 	
 func _physics_process(delta):
@@ -30,3 +32,17 @@ func _physics_process(delta):
 		ship.use_shield();
 
 	move_and_slide()
+
+
+
+func _on_enemy_detector_body_entered(body:Asteroid):
+	if body == null:
+		return
+	collision.disabled = true
+	ship.call("destroy")
+	pass # Replace with function body.
+
+
+func _on_fighter_ship_destruction_completed():
+	emit_signal("player_death")
+	pass # Replace with function body.

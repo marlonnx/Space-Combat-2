@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbfrlmeapd88c"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_lmkf7"]
+[ext_resource type="PackedScene" uid="uid://rd1sgg8yw727" path="res://Ships/fighter/fighter_ship.tscn" id="2_8adpf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t7vke"]
+size = Vector2(24, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3jtv1"]
+size = Vector2(24, 20)
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(319, 310)
+script = ExtResource("1_lmkf7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_t7vke")
+
+[node name="FighterShip" parent="." groups=["ships"] instance=ExtResource("2_8adpf")]
+
+[node name="EnemyDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
+shape = SubResource("RectangleShape2D_3jtv1")
+
+[connection signal="destruction_completed" from="FighterShip" to="." method="_on_fighter_ship_destruction_completed"]
+[connection signal="body_entered" from="EnemyDetector" to="." method="_on_enemy_detector_body_entered"]

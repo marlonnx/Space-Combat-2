@@ -9,13 +9,37 @@
 config_version=5
 
 _global_script_classes=[{
+"base": "CharacterBody2D",
+"class": &"Asteroid",
+"language": &"GDScript",
+"path": "res://enemies/asteroid.gd"
+}, {
 "base": "Node2D",
 "class": &"BaseShip",
 "language": &"GDScript",
 "path": "res://Ships/base_ship.gd"
+}, {
+"base": "Area2D",
+"class": &"HitBox",
+"language": &"GDScript",
+"path": "res://scripts/hit_box.gd"
+}, {
+"base": "Area2D",
+"class": &"HurtBox",
+"language": &"GDScript",
+"path": "res://scripts/hurt_box.gd"
+}, {
+"base": "CharacterBody2D",
+"class": &"Player",
+"language": &"GDScript",
+"path": "res://Player.gd"
 }]
 _global_script_class_icons={
-"BaseShip": ""
+"Asteroid": "",
+"BaseShip": "",
+"HitBox": "",
+"HurtBox": "",
+"Player": ""
 }
 
 [application]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://rd1sgg8yw727"]
+[gd_scene load_steps=35 format=3 uid="uid://rd1sgg8yw727"]
 
 [ext_resource type="Script" path="res://Ships/fighter/fighter_ship.gd" id="1_e1qg7"]
 [ext_resource type="Texture2D" uid="uid://s5a4646g7fmb" path="res://SpriteSheets/FighterShip/Fighter - Base.png" id="1_s1752"]
@@ -10,6 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://c8kfbwmxsg5u8" path="res://SpriteSheets/FighterShip/Fighter - Shield.png" id="5_aw8e2"]
 [ext_resource type="AudioStream" uid="uid://cisevmgwkchjr" path="res://Ships/fighter/shoot_sound.wav" id="6_scoeb"]
 [ext_resource type="Script" path="res://Ships/fighter/Shield.gd" id="8_2wr30"]
+[ext_resource type="Texture2D" uid="uid://d18cklgfrng4s" path="res://assets/shield.png" id="11_0bt7j"]
+[ext_resource type="AudioStream" uid="uid://b8fpqx8qkffem" path="res://assets/energy_shield_sfx.mp3" id="12_kra5j"]
+[ext_resource type="Script" path="res://Ships/fighter/Destruction.gd" id="13_37fkj"]
+[ext_resource type="Texture2D" uid="uid://yikjxn8hmdou" path="res://SpriteSheets/FighterShip/Fighter - Destruction.png" id="13_52g1a"]
 
 [sub_resource type="Animation" id="Animation_mw7ix"]
 length = 0.001
@@ -150,6 +154,43 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="Animation" id="Animation_euhyn"]
+resource_name = "Destruction"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_wul4r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vwjsr"]
+_data = {
+"Destruction": SubResource("Animation_euhyn"),
+"RESET": SubResource("Animation_wul4r")
+}
+
 [node name="FighterShip" type="Node2D"]
 script = ExtResource("1_e1qg7")
 
@@ -166,13 +207,13 @@ texture = ExtResource("2_ue84m")
 hframes = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Weapons"]
-playback_speed = 2.0
+playback_speed = 3.0
 libraries = {
 "": SubResource("AnimationLibrary_7a73f")
 }
 
 [node name="ColdDownTimer" type="Timer" parent="Weapons"]
-wait_time = 0.3
+wait_time = 0.2
 
 [node name="SoundEffect" type="AudioStreamPlayer" parent="Weapons"]
 stream = ExtResource("6_scoeb")
@@ -192,7 +233,6 @@ libraries = {
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Engine"]
 
 [node name="Shield" type="Node2D" parent="."]
-visible = false
 script = ExtResource("8_2wr30")
 
 [node name="ColdDownTimer" type="Timer" parent="Shield"]
@@ -200,12 +240,33 @@ wait_time = 5.0
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shield"]
+visible = false
 frames = SubResource("SpriteFrames_rq1nu")
 animation = &"Shield"
 frame = 4
 
 [node name="ShieldDurationTimer" type="Timer" parent="Shield"]
-wait_time = 5.0
+wait_time = 4.6
 one_shot = true
+
+[node name="ShieldIndicator" type="Sprite2D" parent="Shield"]
+position = Vector2(25, -11)
+scale = Vector2(0.004, 0.004)
+texture = ExtResource("11_0bt7j")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Shield"]
+stream = ExtResource("12_kra5j")
+
+[node name="Destruction" type="Node2D" parent="."]
+script = ExtResource("13_37fkj")
+
+[node name="Sprite2D" type="Sprite2D" parent="Destruction"]
+texture = ExtResource("13_52g1a")
+hframes = 9
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Destruction"]
+libraries = {
+"": SubResource("AnimationLibrary_vwjsr")
+}
 
 [connection signal="animation_finished" from="Weapons/AnimationPlayer" to="Weapons" method="_on_animation_player_animation_finished"]
