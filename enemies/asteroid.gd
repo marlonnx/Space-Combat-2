@@ -5,6 +5,7 @@ extends CharacterBody2D
 var EFFECT = preload("res://enemies/explosion.tscn")
 @onready var explostionSFX := $Explosion
 @onready var sprite := $Sprite2D
+@onready var collision := $CollisionShape2D
 
 var isExploding := false
 func _physics_process(delta):
@@ -12,6 +13,7 @@ func _physics_process(delta):
 	pass
 
 func take_damage(_damage:int) -> void:
+	collision.set_deferred("disabled",true)
 	if isExploding:
 		return
 		
@@ -22,7 +24,6 @@ func take_damage(_damage:int) -> void:
 	sprite.visible = false
 	explosion.position = self.global_position
 	add_child(explosion)
-	
 
 	
 

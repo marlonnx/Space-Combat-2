@@ -8,7 +8,7 @@ extends CharacterBody2D
 
 @onready var ship:= $FighterShip as BaseShip
 @onready var collision := $CollisionShape2D
-
+@onready var enemy_detector := $EnemyDetector
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -30,17 +30,21 @@ func _physics_process(delta):
 		
 	if Input.is_action_just_pressed("shield"):
 		ship.use_shield();
-
+		enemy_detector.set_deferred("monitoring",false)
+		collision.set_deferred("disabled",true)
+		await  ship.shield_disabled
+		enemy_detector.set_deferred("monitoring",true)
+		collision.set_deferred("disabled",false)
 	move_and_slide()
 
 
 
-func _on_enemy_detector_body_entered(body:Asteroid):
-	if body == null:
-		return
-	collision.disabled = true
-	ship.call("destroy")
-	pass # Replace with function body.
+func _on_enemy_detector_body_entered(body:Node2D):
+	if body is Asteroid:
+		collision.set_deferred("disabled",true)
+
+		ship.call("destroy")
+		pass # Replace with function body.
 
 
 func _on_fighter_ship_destruction_completed():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://rd1sgg8yw727"]
+[gd_scene load_steps=36 format=3 uid="uid://rd1sgg8yw727"]
 
 [ext_resource type="Script" path="res://Ships/fighter/fighter_ship.gd" id="1_e1qg7"]
 [ext_resource type="Texture2D" uid="uid://s5a4646g7fmb" path="res://SpriteSheets/FighterShip/Fighter - Base.png" id="1_s1752"]
@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://b8fpqx8qkffem" path="res://assets/energy_shield_sfx.mp3" id="12_kra5j"]
 [ext_resource type="Script" path="res://Ships/fighter/Destruction.gd" id="13_37fkj"]
 [ext_resource type="Texture2D" uid="uid://yikjxn8hmdou" path="res://SpriteSheets/FighterShip/Fighter - Destruction.png" id="13_52g1a"]
+[ext_resource type="AudioStream" uid="uid://c8n1w6bp2mukd" path="res://assets/big-impact.mp3" id="15_korxa"]
 
 [sub_resource type="Animation" id="Animation_mw7ix"]
 length = 0.001
@@ -268,5 +269,8 @@ hframes = 9
 libraries = {
 "": SubResource("AnimationLibrary_vwjsr")
 }
+
+[node name="ExplosionSFX" type="AudioStreamPlayer2D" parent="Destruction"]
+stream = ExtResource("15_korxa")
 
 [connection signal="animation_finished" from="Weapons/AnimationPlayer" to="Weapons" method="_on_animation_player_animation_finished"]

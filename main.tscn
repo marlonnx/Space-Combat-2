@@ -1,10 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwjtn7njr7xyr"]
+[gd_scene load_steps=4 format=3 uid="uid://cwjtn7njr7xyr"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_c4le8"]
 [ext_resource type="PackedScene" uid="uid://dbfrlmeapd88c" path="res://player.tscn" id="2_d7cp3"]
+[ext_resource type="Texture2D" uid="uid://flkfsiy51ch2" path="res://assets/background.jpg" id="2_tpu0l"]
 
 [node name="Main" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_c4le8")
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(334.5, 177)
+scale = Vector2(1.49611, 1.24444)
+texture = ExtResource("2_tpu0l")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(319, 180)

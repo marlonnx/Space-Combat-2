@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnws8vip0wnpi"]
+
+[ext_resource type="Script" path="res://death_screen.gd" id="1_o6oxy"]
+
+[sub_resource type="Gradient" id="Gradient_qu8i8"]
+offsets = PackedFloat32Array(0.984615, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tf5fs"]
+gradient = SubResource("Gradient_qu8i8")
+
+[node name="DeathScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 638.0
+offset_bottom = 361.0
+script = ExtResource("1_o6oxy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(338.5, 192.5)
+scale = Vector2(11.5781, 7.01563)
+texture = SubResource("GradientTexture2D_tf5fs")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 242.0
+offset_top = 226.0
+offset_right = 396.0
+offset_bottom = 267.0
+text = "Tentar Novamente"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 50.0
+offset_right = 228.0
+offset_bottom = 77.0
+scale = Vector2(5, 5)
+text = "Morreu"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -6,6 +6,7 @@ extends BaseShip
 @onready var baseSprite := $Base
 @onready var engine := $Engine
 signal destruction_completed
+signal shield_disabled
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,6 +24,8 @@ func shoot() -> void:
 
 func use_shield() -> void:
 	shield.call("activate_shield")
+	await shield.shield_disabled
+	emit_signal("shield_disabled")
 	pass
 	
 func destroy() -> void:
@@ -33,4 +36,5 @@ func destroy() -> void:
 	destruction.call("destroy")
 	await destruction.destruction_completed
 	emit_signal("destruction_completed")
+	queue_free()
 	pass
